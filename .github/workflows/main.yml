@@ -1,0 +1,21 @@
+name: Validate Server & Client
+on:
+  push:
+    branches: ["main"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install server & client dependencies
+        run: bun run install-all
+
+      - name: Build server & client
+        run: bun run build-all
