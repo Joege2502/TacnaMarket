@@ -1,0 +1,41 @@
+info:
+  name: Register
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:3001/auth/register
+  params:
+    - name: name
+      value: WillianJC
+      type: query
+      disabled: true
+    - name: username
+      value: noreply@willianjc.dev
+      type: query
+      disabled: true
+    - name: password
+      value: admin1234
+      type: query
+      disabled: true
+    - name: address
+      value: Calle Principal 123
+      type: query
+      disabled: true
+  body:
+    type: json
+    data: |-
+      {
+        "name": "WillianJC",
+        "username": "noreply@willianjc.dev",
+        "password": "admin1234",
+        "address": "Calle Principal 123"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

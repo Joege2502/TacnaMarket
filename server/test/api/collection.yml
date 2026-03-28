@@ -1,0 +1,13 @@
+opencollection: 1.0.0
+
+info:
+  name: TacnaMarket API
+  description: Tests para las APIs de TacnaMarket usando Bruno
+
+bundled: false
+
+extensions:
+  bruno:
+    ignore:
+      - node_modules
+      - .git

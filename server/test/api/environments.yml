@@ -1,0 +1,15 @@
+env:
+  local:
+    url: http://localhost:3000
+    token: ''
+    userId: ''
+
+  development:
+    url: http://localhost:3000
+    token: ''
+    userId: ''
+
+  production:
+    url: https://api.tacnamarket.com
+    token: ''
+    userId: ''

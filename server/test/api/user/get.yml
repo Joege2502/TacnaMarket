@@ -1,0 +1,25 @@
+info:
+  name: Get User By ID
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: http://localhost:3001/user/{{userId}}
+  headers:
+    - name: Authorization
+      value: Bearer {{token}}
+  auth: inherit
+
+runtime:
+  variables:
+    - name: userId
+      value: 07768e35-b295-4541-83d3-a5efe49b98f4
+    - name: token
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNzc2OGUzNS1iMjk1LTQ1NDEtODNkMy1hNWVmZTQ5Yjk4ZjQiLCJ1c2VybmFtZSI6Im5vcmVwbHlAd2lsbGlhbmpjLmRldiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzc0NzMwODg1LCJleHAiOjE3NzUzMzU2ODV9.NvisF45eNfz7EXIsSUgMYy_Ja4WZeTyIPvre5N06yi4
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
