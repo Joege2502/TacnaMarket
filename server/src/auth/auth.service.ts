@@ -15,14 +15,14 @@ export class AuthService {
   ) {}
 
   async validateUser(
-    email: string,
+    username: string,
     password: string,
   ): Promise<Omit<User, 'password'> | null> {
     const user = await this.userRepository.findOne({
-      where: { email },
+      where: { username },
       select: [
         'id',
-        'email',
+        'username',
         'name',
         'role',
         'password',
@@ -42,9 +42,9 @@ export class AuthService {
 
   async register(dto: RegisterDto) {
     const exists = await this.userRepository.findOne({
-      where: { email: dto.email },
+      where: { username: dto.username },
     });
-    if (exists) throw new ConflictException('El email ya está registrado');
+    if (exists) throw new ConflictException('El usuario ya está registrado');
 
     const hashed = await bcrypt.hash(dto.password, 10);
     const user = this.userRepository.create({ ...dto, password: hashed });
@@ -61,10 +61,10 @@ export class AuthService {
     return { user, access_token: this.signToken(user as User) };
   }
 
-  private signToken(user: Pick<User, 'id' | 'email' | 'role'>) {
+  private signToken(user: Pick<User, 'id' | 'username' | 'role'>) {
     return this.jwtService.sign({
       sub: user.id,
-      email: user.email,
+      username: user.username,
       role: user.role,
     });
   }

@@ -17,13 +17,16 @@ export class User {
   id: string;
 
   @Column({ unique: true })
-  email: string;
+  username: string;
 
   @Column()
   name: string;
 
   @Column({ select: false })
   password: string;
+
+  @Column()
+  address: string;
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
