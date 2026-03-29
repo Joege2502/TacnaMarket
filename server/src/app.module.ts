@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { DatabaseModule } from './database/database.module';
+import { ProductModule } from './product/product.module';
 import { User } from './user/entities/user.entity';
+import { Product, Category } from './product/entities';
+import { DatabaseSeederService } from './database/database-seeder.service';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { User } from './user/entities/user.entity';
 
         const base = {
           type: 'postgres' as const,
-          entities: [User],
+          entities: [User, Product, Category],
           synchronize: !isProduction,
+          dropSchema: false,
         };
 
         if (databaseUrl) {
@@ -39,9 +42,17 @@ import { User } from './user/entities/user.entity';
         };
       },
     }),
-    DatabaseModule,
+    TypeOrmModule.forFeature([User, Product, Category]),
     UserModule,
     AuthModule,
+    ProductModule,
   ],
+  providers: [DatabaseSeederService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private seederService: DatabaseSeederService) {}
+
+  async onModuleInit() {
+    await this.seederService.seedDefaultUser();
+  }
+}
